@@ -1,6 +1,6 @@
 # DataDrivenDare
 
-This is a simple Flask web application that allows users to upload CSV files and add record to 3 tables: departments, jobs, employees. It is also possible to add records from a file given a file path.
+This is a simple Flask web application that allows users to upload CSV files and add records to 3 tables: departments, jobs, employees. It is also possible to add records from a file given a file path.
 
 ## Table of Contents
 
@@ -9,11 +9,9 @@ This is a simple Flask web application that allows users to upload CSV files and
   - [Installation](#installation)
 - [Usage](#usage)
   - [Uploading a CSV File](#uploading-a-csv-file)
-  - [Retrieving CSV Data](#retrieving-csv-data)
+  - [Reading from a CSV File](#reading-from-a-csv-file)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
-- [License](#license)
-
 
 
 ## Getting Started
@@ -57,6 +55,21 @@ Example using curl:
       "info": "departments has been updated successfully!"
     }
 
+## Reading from a CSV File
 
+To read from a CSV file, send a GET request to the `{table}/hist` endpoint with the CSV `file_path` query parameter. You can use tools like curl, Postman, or create a simple HTML form.
+Example using curl:
 
+    ````shell
+    curl -X GET http://localhost:5000/departments/hist?file_path=data/departments.csv
+    {
+      "info": "departments has been updated successfully!"
+    }
 
+# Configuration
+
+You can configure the app by editing the `.env` file. You can set database URLs, secret keys, and other configuration options there.
+
+# Contributing 
+
+Contributions are welcome! If you find a bug or have an improvement in mind, please open an issue or create a pull request.
