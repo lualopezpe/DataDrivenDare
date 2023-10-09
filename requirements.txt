@@ -1,6 +1,8 @@
 Flask~=2.2.2
-Flask-SQLAlchemy
-Flask-Migrate
+Flask-SQLAlchemy~=3.0.2
+Flask-Migrate~=4.0.5
 sqlalchemy~=1.4.39
 alembic~=1.12.0
-python-dateutil~=2.8.2
+python-decouple~=3.8
+pyodbc~=4.0.34
+gunicorn~=21.2.0
