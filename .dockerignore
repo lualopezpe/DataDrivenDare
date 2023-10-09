@@ -1,0 +1,23 @@
+# Ignore commonly excluded files and directories
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.log
+
+# Ignore development and version control files
+venv/
+.git/
+.idea/
+*.iml
+
+# Ignore Docker-specific files
+Dockerfile
+.dockerignore
+
+# Ignore test files
+tests/
+
+# Ignore any other files or directories that should not be included in the image

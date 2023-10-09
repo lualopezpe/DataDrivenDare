@@ -1,5 +1,5 @@
 import csv
-from models.models import db
+from db import db
 from sqlalchemy.exc import SQLAlchemyError
 from flask import current_app, jsonify
 import os
