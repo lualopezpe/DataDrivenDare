@@ -9,13 +9,13 @@ from controllers.jobs_controller import jobs_blueprint
 from controllers.employees_controller import employees_blueprint
 
 app = Flask(__name__)
-app.config.from_object('config.Config')
+app.config.from_object('test_config.TestConfig')
 db.init_app(app)
 
 if not os.path.exists('logs'):
     os.makedirs('logs')
 
-logHandler = TimedRotatingFileHandler(os.path.join('logs', 'data_driven_dare.log'),
+logHandler = TimedRotatingFileHandler(os.path.join('logs', 'test_data_driven_dare.log'),
                                       when='H', interval=1, backupCount=24)
 logHandler.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
