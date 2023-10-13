@@ -29,7 +29,7 @@ resource "azurerm_service_plan" "asp" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   os_type             = "Linux"
-  sku_name            = "F1"
+  sku_name            = "B1"
 }
 
 resource "azurerm_postgresql_flexible_server" "pg_flex" {
@@ -40,7 +40,7 @@ resource "azurerm_postgresql_flexible_server" "pg_flex" {
   storage_mb             = 32768
   administrator_login    = var.postgresql_login
   administrator_password = var.postgresql_pwd
-  sku_name               = "B_Standard_B1ms"
+  sku_name               = "B_Standard_B2s"
   backup_retention_days  = 7
 
 }

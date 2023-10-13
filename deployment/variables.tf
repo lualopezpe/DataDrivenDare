@@ -15,10 +15,8 @@ variable "docker_image_url" {
 
 variable "postgresql_login" {
   description = "Database username"
-  default     = "lualopezpe"
 }
 
 variable "postgresql_pwd" {
   description = "Database password"
-  default     = "Lu4lop3zp3*"
 }

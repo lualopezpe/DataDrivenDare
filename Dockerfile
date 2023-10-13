@@ -38,7 +38,7 @@ COPY . /app/
 COPY entrypoint.sh /app/
 
 # Expose port 5000 for the Flask app
-EXPOSE 5001
+EXPOSE 5000
 
 CMD ["sh", "entrypoint.sh"]
 
