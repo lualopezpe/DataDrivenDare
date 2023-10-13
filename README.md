@@ -27,7 +27,7 @@ This is a simple Flask web application that allows users to upload CSV files and
 1. Clone this repository to your local machine:
 
    ```shell
-   git clone https://lualopezpe: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@github.com/lualopezpe/DataDrivenDare.git
+   [git clone https://lualgithub.com/lualopezpe/DataDrivenDare.git](https://github.com/lualopezpe/DataDrivenDare.git)
    
 2. Create a virtual environment and activate it (optional but recommended):
     ```shell
