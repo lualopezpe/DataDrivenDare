@@ -1,6 +1,7 @@
 import csv
 from db import db
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import cast, String, Integer, Float, Boolean
 from flask import current_app, jsonify
 import os
 
@@ -11,16 +12,24 @@ def insert_data_from_csv(csv_file, model):
 
         csv_reader = csv.reader(csv_file)
         batch_size = 100  # Adjust later
-
+        batch = []
         for i, row in enumerate(csv_reader):
-            if i % batch_size == 0:
-                db.session.commit()
 
             # Insert data into the table
-            row_dict = {field: value for field, value in zip([column.key for column in model.__table__.columns], row)}
-            record = model(**row_dict)
-            db.session.merge(record)
-        db.session.commit()
+            row_dict = {
+                column.key: cast_to_python_type(value, column.type)
+                for column, value in zip(model.__table__.columns, row)
+            }
+            batch.append(model(**row_dict))
+
+            if len(batch) == 100:
+                db.session.add_all(batch)
+                db.session.commit()
+                batch = []
+
+            if len(batch) > 0:
+                db.session.add_all(batch)
+                db.session.commit()
 
         return jsonify(info=f"{model.__table__} has been updated successfully!"), 200
 
@@ -41,17 +50,22 @@ def insert_hist_data_from_csv(file_path, model):
 
         with open(os.path.join(os.getcwd(), file_path), 'r', newline='') as file:
             csv_reader = csv.reader(file)
-            batch_size = 100  # Adjust later
 
             for i, row in enumerate(csv_reader):
-                if i % batch_size == 0:
-                    db.session.commit()
+                row_dict = {
+                    column.key: cast_to_python_type(value, column.type)
+                    for column, value in zip(model.__table__.columns, row)
+                }
+                batch.append(model(**row_dict))
 
-                # Insert data into the table
-                row_dict = {field: value for field, value in zip([column.key for column in model.__table__.columns], row)}
-                record = model(**row_dict)
-                db.session.merge(record)
-            db.session.commit()
+                if len(batch) == 100:
+                    db.session.add_all(batch)
+                    db.session.commit()
+                    batch = []
+
+            if len(batch) > 0:
+                db.session.add_all(batch)
+                db.session.commit()
 
         return jsonify(info=f"{model.__table__} has been updated successfully!"), 200
 
@@ -67,3 +81,17 @@ def insert_hist_data_from_csv(file_path, model):
         db.session.rollback()
         current_app.logger.error(f"Unknown error: {str(e)}")
         return jsonify(error="Unknown error has occurred!"), 500
+
+
+def cast_to_python_type(value, column_type):
+    if isinstance(column_type, String):
+        return str(value)
+    elif isinstance(column_type, Integer):
+        if value == '':
+            return None
+        return int(value)
+    elif isinstance(column_type, Float):
+        return float(value)
+    elif isinstance(column_type, Float):
+        return bool(value)
+    return value

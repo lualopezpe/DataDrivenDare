@@ -35,10 +35,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code into the container
 COPY . /app/
+COPY entrypoint.sh /app/
 
 # Expose port 5000 for the Flask app
 EXPOSE 5000
 
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000"]
+CMD ["sh", "entrypoint.sh"]
+
+
 

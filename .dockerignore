@@ -21,3 +21,5 @@ Dockerfile
 tests/
 
 # Ignore any other files or directories that should not be included in the image
+.env
+deployment/
